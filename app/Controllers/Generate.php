@@ -87,8 +87,8 @@ class Generate extends BaseController
                 return redirect()->to(base_url('generate'));
             }
             
-            // Sabit şifre uzunluğu
-            $passwordLength = 16;
+            // Şifre uzunluğunu .env dosyasından al veya varsayılan kullan
+            $passwordLength = getenv('DEFAULT_PASSWORD_LENGTH') ? (int)getenv('DEFAULT_PASSWORD_LENGTH') : 16;
             
             // Şifre oluşturma
             $password = $this->generatePassword(
