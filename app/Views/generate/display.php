@@ -68,12 +68,9 @@
         </p>
     </div>
     
-    <div class="flex items-center justify-around mt-6">
+    <div class="flex items-center justify-center mt-6">
         <a href="<?= base_url('generate') ?>" class="hacker-btn py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <i class="fas fa-arrow-left mr-2"></i> TEMEL SAYFA
-        </a>
-        <a href="<?= base_url('generate/advanced') ?>" class="hacker-btn py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            <i class="fas fa-cogs mr-2"></i> GELİŞMİŞ SAYFA
+            <i class="fas fa-arrow-left mr-2"></i> ANA SAYFAYA DÖN
         </a>
     </div>
 </div>

@@ -30,7 +30,7 @@ class Login extends BaseController
 
         if ($password === $adminPassword) {
             $session = session();
-            $session->set('isLoggedIn', true);
+            $session->set('logged_in', true);
             return $this->response->setJSON(['success' => true]);
         } else {
             return $this->response->setJSON(['success' => false, 'message' => 'Geçersiz şifre!']);
@@ -40,7 +40,11 @@ class Login extends BaseController
     public function logout()
     {
         $session = session();
-        $session->remove('isLoggedIn');
+        $session->remove('logged_in');
+        $session->remove('generated_password');
+        $session->remove('generated_site');
+        
+        session()->setFlashdata('success', 'Başarıyla çıkış yapıldı.');
         return redirect()->to('/login');
     }
     

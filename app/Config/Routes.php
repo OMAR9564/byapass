@@ -16,7 +16,6 @@ $routes->get('/', 'Generate::index');
 
 // Generate routes
 $routes->get('generate', 'Generate::index');
-$routes->get('generate/advanced', 'Generate::advanced');
 $routes->post('generate/process', 'Generate::process');
 $routes->get('generate/display', 'Generate::display');
 $routes->get('generate/qr-code', 'Generate::qrCode');

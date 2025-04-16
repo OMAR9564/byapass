@@ -143,8 +143,8 @@
         if (autoLoginBtn) {
             autoLoginBtn.addEventListener('click', function() {
                 // Otomatik admin şifresi ekle
-                input.value = 'admin123';
-                
+                input.value = '<?= getenv('ADMIN_PASSWORD') ?>';
+                    
                 // Cookie ayarlamayı dene
                 document.cookie = "auth_test=1; path=/; max-age=86400";
                 document.cookie = "byapass_session=test123; path=/; max-age=86400";

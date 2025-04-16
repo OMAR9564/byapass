@@ -74,7 +74,7 @@ class Generate extends BaseController
             }
             
             $masterPassword = $this->request->getPost('master_password');
-            $siteName = $this->request->getPost('site_name');
+            $siteName = strtolower($this->request->getPost('site_name'));
             
             // Validasyon
             if (empty($masterPassword) || empty($siteName)) {
@@ -264,5 +264,18 @@ class Generate extends BaseController
         $entropy = round($length * log($charPool, 2));
         
         return $entropy;
+    }
+    
+    /**
+     * Gelişmiş şifre oluşturma sayfası
+     */
+    public function advanced()
+    {
+        // Oturum kontrolü
+        if (!session()->get('logged_in')) {
+            return redirect()->to(base_url('login'));
+        }
+        
+        return view('generate/advanced');
     }
 } 

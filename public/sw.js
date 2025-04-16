@@ -1,13 +1,17 @@
-const CACHE_NAME = 'byapass-v1';
+const CACHE_NAME = 'byapass-v2';
 const urlsToCache = [
    '/',
    '/generate',
-   '/generate/advanced',
-   '/auth/login',
+   '/generate/display',
+   '/generate/qr-code',
+   '/login',
+   '/login/logout',
    '/manifest.json',
-   '/icons/icon-192x192.png',
-   '/icons/icon-512x512.png',
-   'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css'
+   '/icons/byapass_logo.png',
+   'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css',
+   'https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap',
+   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
+   'https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js'
 ];
 
 // Service Worker kurulumu

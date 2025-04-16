@@ -182,7 +182,9 @@
                 <nav>
                     <ul class="flex space-x-4">
                         <li><a href="<?= base_url('generate') ?>" class="hover:text-green-300"><i class="fas fa-home"></i> Ana Sayfa</a></li>
-                        <li><a href="<?= base_url('generate/advanced') ?>" class="hover:text-green-300"><i class="fas fa-cogs"></i> Gelişmiş</a></li>
+                        <?php if (session()->get('logged_in')): ?>
+                        <li><a href="<?= base_url('login/logout') ?>" class="hover:text-green-300"><i class="fas fa-sign-out-alt"></i> Çıkış</a></li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
             </div>
