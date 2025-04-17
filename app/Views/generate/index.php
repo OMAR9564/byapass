@@ -124,6 +124,13 @@ document.addEventListener('DOMContentLoaded', function() {
             body: `master_password=${encodeURIComponent(masterPassword)}&site_name=${encodeURIComponent(siteName)}`
         })
         .then(response => {
+            if (response.status === 401) {
+                // Oturum süresi dolmuş - giriş sayfasına yönlendir
+                alert('Oturum süreniz doldu. Lütfen tekrar giriş yapın.');
+                window.location.href = '<?= base_url('login') ?>';
+                throw new Error('Oturum süresi dolmuş');
+            }
+            
             if (!response.ok) {
                 throw new Error('Sunucu yanıt vermedi: ' + response.status);
             }

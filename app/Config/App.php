@@ -157,7 +157,7 @@ class App extends BaseConfig
      * secure, the user will be redirected to a secure version of the page
      * and the HTTP Strict Transport Security (HSTS) header will be set.
      */
-    public bool $forceGlobalSecureRequests = false;
+    public bool $forceGlobalSecureRequests = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -198,7 +198,7 @@ class App extends BaseConfig
      * @see http://www.html5rocks.com/en/tutorials/security/content-security-policy/
      * @see http://www.w3.org/TR/CSP/
      */
-    public bool $CSPEnabled = false;
+    public bool $CSPEnabled = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -242,7 +242,7 @@ class App extends BaseConfig
      *
      * @var bool
      */
-    public bool $cookieSecure = false;
+    public bool $cookieSecure = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -253,5 +253,5 @@ class App extends BaseConfig
      *
      * @var bool
      */
-    public bool $cookieHTTPOnly = false;
+    public bool $cookieHTTPOnly = true;
 }

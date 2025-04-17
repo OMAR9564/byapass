@@ -7,11 +7,6 @@
     <meta name="description" content="Deterministik şifre üretme aracı. Şifrenizi hiçbir yerde saklamadan, her site için aynı şifreyi yeniden üretebilirsiniz.">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
-    <!-- PWA Meta Etiketleri -->
-    <meta name="theme-color" content="#0a0a0a">
-    <link rel="manifest" href="<?= base_url('manifest.json') ?>">
-    <link rel="apple-touch-icon" href="<?= base_url('icons/icon-192x192.png') ?>">
-    
     <!-- Google Fonts - Hacker Tarzı Font -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     

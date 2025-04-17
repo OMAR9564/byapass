@@ -27,12 +27,18 @@ class Login extends BaseController
     {
         $password = $this->request->getPost('password');
         $adminPassword = getenv('ADMIN_PASSWORD');
+        // Hassas bilgileri loglamamalıyız
+        log_message('info', 'Giriş denemesi yapıldı');
 
         if ($password === $adminPassword) {
-            $session = session();
-            $session->set('logged_in', true);
+            // Don't destroy the session - just set the value
+            session()->set('logged_in', true);
+            
+            log_message('info', 'Kullanıcı başarıyla giriş yaptı');
+            
             return $this->response->setJSON(['success' => true]);
         } else {
+            log_message('info', 'Giriş başarısız');
             return $this->response->setJSON(['success' => false, 'message' => 'Geçersiz şifre!']);
         }
     }

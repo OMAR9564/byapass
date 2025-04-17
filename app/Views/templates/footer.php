@@ -13,7 +13,7 @@
             </div>
             <div class="mt-2 text-center text-xs text-green-600">
                 <div class="typewriter-text" id="hackerText">
-                    Oturum süresi: 956400 saniye | Güvenli bağlantı sağlandı | Veriler şifrelendi | Terminal hazır
+                    Oturum süresi: 2592000 saniye (30 gün) | Güvenli bağlantı sağlandı | Veriler şifrelendi | Terminal hazır
                 </div>
             </div>
         </div>
@@ -57,21 +57,6 @@
                 card.insertBefore(header, card.firstChild);
             });
         });
-    </script>
-    
-    <!-- PWA Service Worker Kaydı -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('<?= base_url('sw.js') ?>')
-                    .then(registration => {
-                        console.log('ServiceWorker başarıyla kaydedildi:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker kaydı başarısız:', error);
-                    });
-            });
-        }
     </script>
 </body>
 </html> 

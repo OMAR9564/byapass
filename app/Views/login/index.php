@@ -103,7 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 500);
             } else if (data.success) {
                 // Başarılı giriş, generate sayfasına yönlendir
-                window.location.href = '<?= base_url('generate') ?>';
+                console.log("Başarılı giriş, sayfa yönlendiriliyor...");
+                setTimeout(function() {
+                    window.location.href = '<?= base_url('generate') ?>';
+                }, 500);
             }
         })
         .catch(error => {

@@ -14,10 +14,16 @@ class Generate extends BaseController
     public function index()
     {
         // Oturum kontrolü
-        if (!session()->get('logged_in')) {
+        $session = session();
+        $isLoggedIn = $session->get('logged_in');
+        
+        if (!$isLoggedIn) {
+            // Oturum yoksa login sayfasına yönlendir
+            log_message('info', 'Oturum bulunamadı, login sayfasına yönlendiriliyor');
             return redirect()->to(base_url('login'));
         }
         
+        log_message('info', 'Generate sayfası başarıyla gösterildi');
         return view('generate/index');
     }
     
@@ -54,7 +60,11 @@ class Generate extends BaseController
     public function process()
     {
         // Oturum kontrolü
-        if (!session()->get('logged_in')) {
+        $session = session();
+        $isLoggedIn = session()->get('logged_in') === true;
+        
+        if (!$isLoggedIn) {
+            log_message('info', 'Process: Oturum bulunamadı');
             if ($this->request->isAJAX()) {
                 return $this->response->setJSON([
                     'error' => 'Oturum süresi dolmuş'
@@ -202,22 +212,40 @@ class Generate extends BaseController
     private function savePasswordToEnv($siteName, $password)
     {
         // Site adını güvenli bir anahtar formatına dönüştür
-        $key = 'PASSWORD_' . strtoupper(preg_replace('/[^a-zA-Z0-9]/', '_', $siteName));
+        // Sadece alfanümerik karakterlere izin ver ve diğerlerini '_' ile değiştir
+        $safeSiteName = preg_replace('/[^a-zA-Z0-9]/', '_', $siteName);
+        $key = 'PASSWORD_' . strtoupper($safeSiteName);
         
         // .env dosya içeriğini oku
+        if (!file_exists($this->envPath)) {
+            log_message('error', '.env dosyası bulunamadı');
+            throw new \Exception('.env dosyası bulunamadı');
+        }
+        
         $envContent = file_get_contents($this->envPath);
+        if ($envContent === false) {
+            log_message('error', '.env dosyası okunamadı');
+            throw new \Exception('.env dosyası okunamadı');
+        }
+        
+        // Şifreyi çift tırnak içine alarak sakla
+        $escapedPassword = str_replace('"', '\"', $password);
         
         // Bu anahtar zaten var mı kontrol et
         if (preg_match("/$key=.*/", $envContent)) {
             // Mevcut değeri güncelle
-            $envContent = preg_replace("/$key=.*/", "$key=\"$password\"", $envContent);
+            $envContent = preg_replace("/$key=.*/", "$key=\"$escapedPassword\"", $envContent);
         } else {
             // Yeni bir değer ekle
-            $envContent .= "\n$key=\"$password\"";
+            $envContent .= "\n$key=\"$escapedPassword\"";
         }
         
         // Dosyaya geri yaz
-        file_put_contents($this->envPath, $envContent);
+        $result = file_put_contents($this->envPath, $envContent, LOCK_EX);
+        if ($result === false) {
+            log_message('error', '.env dosyasına yazılamadı');
+            throw new \Exception('.env dosyasına yazılamadı');
+        }
     }
     
     /**
