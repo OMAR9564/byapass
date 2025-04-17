@@ -1,5 +1,6 @@
 <?= view('templates/header') ?>
 
+<?= csrf_field() ?>
 <div class="max-w-md mx-auto hacker-card p-6 rounded-lg">
     <h2 class="text-2xl font-bold mb-4 text-center text-green-400 glitch-effect" data-text="YÖNETİCİ GİRİŞİ">YÖNETİCİ GİRİŞİ</h2>
     
@@ -21,6 +22,7 @@
                 <i class="fas fa-key mr-2"></i> YÖNETİCİ ŞİFRESİ
             </label>
             <div class="relative">
+                <input type="hidden" name="csrf_token" value="<?= csrf_hash() ?>" />
                 <span class="absolute left-3 top-2 text-green-400">$></span>
                 <input type="password" name="password" id="password" 
                       class="hacker-input pl-10 shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline focus:border-green-400"
@@ -72,15 +74,22 @@ document.addEventListener('DOMContentLoaded', function() {
         buttonText.classList.add('hidden');
         spinner.classList.remove('hidden');
         
+        // CSRF token doğrudan sayfadan al
+        const csrfName = document.querySelector('input[type="hidden"][name]').name; 
+        const csrfValue = document.querySelector('input[type="hidden"][name]').value;
+        
         const password = document.getElementById('password').value;
+        
+        const formData = new FormData();
+        formData.append('password', password);
+        formData.append(csrfName, csrfValue);
         
         fetch('<?= base_url('login/authenticate') ?>', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
                 'X-Requested-With': 'XMLHttpRequest'
             },
-            body: `password=${encodeURIComponent(password)}`
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
